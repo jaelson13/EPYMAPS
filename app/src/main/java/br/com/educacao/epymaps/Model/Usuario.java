@@ -13,10 +13,23 @@ public class Usuario {
     private String cidade;
     private Date dataNascimento;
     private String telefone;
+    private String estado;
 
-    public String getTelefone(){ return telefone;}
+    public String getEstado() {
+        return estado;
+    }
 
-    public void setTelefone(String telefone){ this.telefone = telefone;}
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
 
     public Long getIdUsuario() {
         return idUsuario;
