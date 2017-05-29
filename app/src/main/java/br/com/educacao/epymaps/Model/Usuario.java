@@ -1,5 +1,7 @@
 package br.com.educacao.epymaps.Model;
 
+import java.util.Date;
+
 public class Usuario {
 
     private Long idUsuario;
@@ -9,7 +11,12 @@ public class Usuario {
     private String email;
     private String endereco;
     private String cidade;
-    private String dataNascimento;
+    private Date dataNascimento;
+    private String telefone;
+
+    public String getTelefone(){ return telefone;}
+
+    public void setTelefone(String telefone){ this.telefone = telefone;}
 
     public Long getIdUsuario() {
         return idUsuario;
@@ -67,11 +74,11 @@ public class Usuario {
         this.cidade = cidade;
     }
 
-    public String getDataNascimento() {
+    public Date getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(String dataNascimento) {
+    public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 }

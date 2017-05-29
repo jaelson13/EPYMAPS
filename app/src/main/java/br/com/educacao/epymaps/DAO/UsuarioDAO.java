@@ -19,7 +19,8 @@ public class UsuarioDAO extends GenericDAO<Usuario> {
 
     @Override
     public boolean salvar(Usuario usuario) {
-        database.execSQL("INSERT INTO usuario(nome,sobrenome,email,endereco,cidade,estado,dataNascimento)");
+        database.execSQL("INSERT INTO usuario(nome,sobrenome,dataNasc,telefone,email,senha,status) VALUES(?,?,?,?,?,?,?)",
+                new Object[]{usuario.getNome(),usuario.getSobrenome(),usuario.getDataNascimento(),usuario.getTelefone(),usuario.getEmail(),usuario.getSenha(),true});
         return false;
     }
 }

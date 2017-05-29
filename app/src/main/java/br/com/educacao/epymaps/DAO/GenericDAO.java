@@ -12,17 +12,19 @@ public abstract class GenericDAO<T> extends SQLiteOpenHelper {
 
     private static final String NOME_BANCO = "epymaps";
     private static final int VERSAO_BANCO = 1;
-    private String sqlCreateCliente = "CREATE TABLE IF NOT EXISTS usuario(" +
+    private String sqlCreateUsuario = "CREATE TABLE IF NOT EXISTS usuario(" +
             "idCliente INT AUTO_INCREMENT," +
-            "nome VARCHAR(20) NOT NULL," +
-            "sobrenome VARCHAR(45) NOT NULL" +
+            "nome VARCHAR(45) NOT NULL," +
+            "sobrenome VARCHAR(45) NOT NULL," +
+            "dataNascimento DATE NOT NULL," +
+            "telefone VARCHAR(45) NOT NULL,"+
             "email VARCHAR(60) NOT NULL," +
-            "endereco VARCHAR(45) NOT NULL," +
+            "status BOOLEAN," +
+            "administrador BOOLEAN DEFAULT FALSE," +
             "cidade VARCHAR(45) NOT NULL," +
             "estado VARCAHR(45) NOT NULL," +
-            "dataNascimento DATE NOT NULL" +
             "PRIMARY KEY(idCliente)," +
-            " UNIQUE KEY(email)" +
+            "UNIQUE KEY(email)" +
             ");";
 
     public GenericDAO(Context context) {
@@ -32,7 +34,7 @@ public abstract class GenericDAO<T> extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(sqlCreateCliente);
+        db.execSQL(sqlCreateUsuario);
     }
 
     @Override
