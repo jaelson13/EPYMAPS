@@ -61,24 +61,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Data Nascimento:"/>
-        <EditText
-            android:layout_width="100pt"
-            android:layout_height="wrap_content"
-            android:inputType="date"
-            android:id="@+id/edtDataNasc"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Telefone:"/>
-        <EditText
-            android:layout_width="100pt"
-            android:layout_height="wrap_content"
-            android:inputType="date"
-            android:id="@+id/edtTelefone"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Cidade:"/>
         <EditText
             android:layout_width="100pt"
