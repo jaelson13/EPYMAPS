@@ -6,34 +6,25 @@ public class Usuario {
 
     private Long idUsuario;
     private String nome;
-    private String sobrenome;
     private String senha;
     private String email;
-    private String endereco;
+    private String sexo;
     private String cidade;
-    private Date dataNascimento;
-    private String telefone;
     private String estado;
 
-    public String getEstado() {
-        return estado;
+    public String getSexo() {
+       return sexo;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setSexo(String sexo) {
+        if(sexo == "Feminino"){
+            this.sexo = "F";
+        }else{
+            this.sexo = "M";
+        }
     }
 
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public Long getIdUsuario() {
-        return idUsuario;
-    }
+    public Long getIdUsuario() {return idUsuario;}
 
     public void setIdUsuario(Long idUsuario) {
         this.idUsuario = idUsuario;
@@ -45,14 +36,6 @@ public class Usuario {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getSobrenome() {
-        return sobrenome;
-    }
-
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
     }
 
     public String getSenha() {
@@ -71,14 +54,6 @@ public class Usuario {
         this.email = email;
     }
 
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
     public String getCidade() {
         return cidade;
     }
@@ -87,11 +62,11 @@ public class Usuario {
         this.cidade = cidade;
     }
 
-    public Date getDataNascimento() {
-        return dataNascimento;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
-        this.dataNascimento = dataNascimento;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }
