@@ -65,12 +65,9 @@ public abstract class GenericDAO<T> extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
         db.execSQL(sqlCreateEstado);
         db.execSQL(sqlCreateMunicipio);
         db.execSQL(sqlCreateUsuario);
-
-
     }
 
     @Override
