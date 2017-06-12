@@ -22,7 +22,7 @@ public class PrincipalActivity extends AppCompatActivity {
     UsuarioDAO usuarioDAO;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
@@ -46,7 +46,10 @@ public class PrincipalActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                usuarioDAO.logar(edtEmail.getText().toString(),edtSenha.getText().toString());
+                if(usuarioDAO.logar(edtEmail.getText().toString(),edtSenha.getText().toString())){
+                    Intent intent = new Intent(PrincipalActivity.this,HomeActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 

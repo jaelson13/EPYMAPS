@@ -57,6 +57,14 @@ public abstract class GenericDAO<T> extends SQLiteOpenHelper {
             "administrador BOOLEAN DEFAULT FALSE" +
             ");";
 
+    private String sqlCreateFichaUsuario = "CREATE TABLE IF NOT EXISTS fichaDiaria(" +
+            "idFicha INNTEGER PRIMARY KEY AUTOINCREMENT," +
+            "statusUsuario VARCHAR(6) NOT NULL," +
+            "descricao VARCHAR(50)," +
+            "idCliente INTEGER," +
+            "FOREIGN KEY(idCliente) REFERENCES usuario(idCliente));";
+
+
     public GenericDAO(Context context) {
         super(context, NOME_BANCO, null, VERSAO_BANCO);
         this.context = context;

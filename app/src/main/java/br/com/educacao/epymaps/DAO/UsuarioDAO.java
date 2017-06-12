@@ -18,6 +18,7 @@ public class UsuarioDAO extends GenericDAO<Usuario> implements DAO<Usuario> {
 
     private SQLiteDatabase database;
     private Context context;
+    private Cursor c;
 
     public UsuarioDAO(Context context) {
         super(context);
@@ -34,7 +35,7 @@ public class UsuarioDAO extends GenericDAO<Usuario> implements DAO<Usuario> {
     }
 
     public ArrayList<String> getMunicipios(String estado) {
-        Cursor c = database.rawQuery("SELECT uf FROM estado WHERE nome='" + estado + "'", null);
+        c = database.rawQuery("SELECT uf FROM estado WHERE nome='" + estado + "'", null);
         c.moveToFirst();
         String valor = c.getString(c.getColumnIndex("uf"));
         c = database.rawQuery("SELECT nome FROM municipio WHERE uf='" + valor + "'", null);
@@ -47,7 +48,7 @@ public class UsuarioDAO extends GenericDAO<Usuario> implements DAO<Usuario> {
     }
 
     public ArrayList<String> getEstados() {
-        Cursor c = database.rawQuery("SELECT nome FROM estado", null);
+        c = database.rawQuery("SELECT nome FROM estado", null);
         ArrayList<String> dados = new ArrayList<>();
         c.moveToFirst();
         do {
@@ -58,7 +59,7 @@ public class UsuarioDAO extends GenericDAO<Usuario> implements DAO<Usuario> {
 
 
     public boolean verificarEmail(String email) {
-        Cursor c = database.rawQuery("SELECT email FROM usuario WHERE email='" + email + "'", null);
+        c = database.rawQuery("SELECT email FROM usuario WHERE email='" + email + "'", null);
         c.moveToFirst();
 
         if (c.getCount() == 1) {
@@ -68,42 +69,58 @@ public class UsuarioDAO extends GenericDAO<Usuario> implements DAO<Usuario> {
         }
     }
 
-    public void logar(String email, String senha) {
-        Cursor c = database.rawQuery("SELECT email,senha,status FROM usuario WHERE email='" + email + "' AND senha='" + senha + "'", null);
+    public boolean logar(String email, String senha) {
+        c = database.rawQuery("SELECT email,senha,status FROM usuario WHERE email='" + email + "' AND senha='" + senha + "'", null);
         c.moveToFirst();
 
         if (c.getCount() == 1) {
             if (c.getInt(c.getColumnIndex("status")) == 1) {
-                Toast.makeText(context, "Usuario Logado", Toast.LENGTH_LONG).show();
+                salvarSessao(email);
+                return true;
             } else if (c.getInt(c.getColumnIndex("status")) == 0) {
                 Toast.makeText(context, "Usuario Desativado", Toast.LENGTH_LONG).show();
+                return false;
             }
         } else {
             Toast.makeText(context, "Usuario ou Senha invalidos", Toast.LENGTH_LONG).show();
+            return false;
 
         }
+        return false;
     }
 
-    public void desativarUsuario(String email){
-            Cursor c = database.rawQuery("SELECT email FROM usuario WHERE email='"+email+"'",null);
+    private void salvarSessao(String email) {
+        Usuario usuario = new Usuario();
+        c = database.rawQuery("SELECT idCliente,nome,sexo,estado,cidade FROM usuario WHERE email='"+email+"'",null);
+        c.moveToFirst();
 
-            if(c.getCount()==1) {
-                database.execSQL("UPDATE usuario SET status='"+0+"' WHERE email=?", new Object[]{email});
-                Toast.makeText(context, "O usuario foi desativado", Toast.LENGTH_LONG).show();
-            }else{
-                Toast.makeText(context, "Usuario Inexistente", Toast.LENGTH_LONG).show();
-            }
+        usuario.setIdUsuario(c.getInt(c.getColumnIndex("idCliente")));
+        usuario.setNome(c.getString(c.getColumnIndex("nome")));
+        usuario.setSexo(c.getString(c.getColumnIndex("sexo")));
+        usuario.setCidade(c.getString(c.getColumnIndex("cidade")));
+        usuario.setEstado(c.getString(c.getColumnIndex("estado")));
+    }
+
+    public void desativarUsuario(String email) {
+        c = database.rawQuery("SELECT email FROM usuario WHERE email='" + email + "'", null);
+
+        if (c.getCount() == 1) {
+            database.execSQL("UPDATE usuario SET status='" + 0 + "' WHERE email=?", new Object[]{email});
+            Toast.makeText(context, "O usuario foi desativado", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(context, "Usuario Inexistente", Toast.LENGTH_LONG).show();
+        }
 
 
     }
 
-    public void ativarUsuario(String email){
-        Cursor c = database.rawQuery("SELECT email FROM usuario WHERE email='"+email+"'",null);
+    public void ativarUsuario(String email) {
+        c = database.rawQuery("SELECT email FROM usuario WHERE email='" + email + "'", null);
 
-        if(c.getCount()==1) {
-            database.execSQL("UPDATE usuario SET status='"+1+"' WHERE email=?", new Object[]{email});
+        if (c.getCount() == 1) {
+            database.execSQL("UPDATE usuario SET status='" + 1 + "' WHERE email=?", new Object[]{email});
             Toast.makeText(context, "O usuario foi ativado", Toast.LENGTH_LONG).show();
-        }else{
+        } else {
             Toast.makeText(context, "Usuario Inexistente", Toast.LENGTH_LONG).show();
         }
 

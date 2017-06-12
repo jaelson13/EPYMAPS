@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Usuario {
 
-    private Long idUsuario;
+    private int idUsuario;
     private String nome;
     private String senha;
     private String email;
@@ -24,9 +24,9 @@ public class Usuario {
         }
     }
 
-    public Long getIdUsuario() {return idUsuario;}
+    public int getIdUsuario() {return idUsuario;}
 
-    public void setIdUsuario(Long idUsuario) {
+    public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
 
