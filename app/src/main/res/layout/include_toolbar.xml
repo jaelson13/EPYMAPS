@@ -1,10 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/toolbar"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="100pt"
+    android:layout_height="100pt"
     android:minHeight="?attr/actionBarSize"
     android:background="?attr/colorPrimary"
+    android:layout_marginTop="50dp"
+    android:title="Ficha Diaria"
+    android:layout_gravity="center"
+
+
     >
+
+
+    <ImageButton
+    android:id="@+id/ibDoente"
+    android:layout_width="48px"
+    android:layout_height="48px"
+    android:src="@mipmap/iconsaudavel"/>
+
+    <ImageButton
+    android:id="@+id/ibSaude"
+    android:layout_width="48px"
+    android:layout_height="48px"
+    android:src="@mipmap/iconsaudavel"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Descrição:"/>
+
+    <EditText
+        android:layout_width="50pt"
+        android:layout_height="50pt"
+        android:maxLines="20"
+        android:maxLength="100"
+        android:background="@color/branco"
+        android:layout_gravity="center"/>
 
 </android.support.v7.widget.Toolbar>

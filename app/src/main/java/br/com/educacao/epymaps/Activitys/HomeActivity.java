@@ -35,9 +35,11 @@ public class HomeActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.itmPerfil:
                 linearLayout.setVisibility(LinearLayout.VISIBLE);
+                break;
             case R.id.itmSair:
                 Intent intent = new Intent(this,PrincipalActivity.class);
                 startActivity(intent);
+                break;
 
         }
         return true;

@@ -60,7 +60,7 @@ public abstract class GenericDAO<T> extends SQLiteOpenHelper {
     private String sqlCreateFichaUsuario = "CREATE TABLE IF NOT EXISTS fichaDiaria(" +
             "idFicha INNTEGER PRIMARY KEY AUTOINCREMENT," +
             "statusUsuario VARCHAR(6) NOT NULL," +
-            "descricao VARCHAR(50)," +
+            "descricao VARCHAR(50) DEFAULT 'Sem descrição'," +
             "idCliente INTEGER," +
             "FOREIGN KEY(idCliente) REFERENCES usuario(idCliente));";
 

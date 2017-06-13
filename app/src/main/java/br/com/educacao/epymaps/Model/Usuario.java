@@ -13,18 +13,16 @@ public class Usuario {
     private String estado;
 
     public String getSexo() {
-       return sexo;
+        return sexo;
     }
 
     public void setSexo(String sexo) {
-        if(sexo == "Feminino"){
-            this.sexo = "F";
-        }else{
-            this.sexo = "M";
-        }
+        this.sexo = sexo;
     }
 
-    public int getIdUsuario() {return idUsuario;}
+    public int getIdUsuario() {
+        return idUsuario;
+    }
 
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
