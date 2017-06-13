@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import br.com.educacao.epymaps.Model.FichaDiaria;
+import br.com.educacao.epymaps.Model.UserAtivoSingleton;
 import br.com.educacao.epymaps.Model.Usuario;
 
 /**
@@ -20,7 +21,7 @@ public class FichaDAO extends GenericDAO<FichaDiaria> implements DAO<FichaDiaria
     private SQLiteDatabase database;
     private Context context;
     private Cursor c;
-    private Usuario usuario;
+
 
     public FichaDAO(Context context) {
         super(context);
@@ -31,13 +32,13 @@ public class FichaDAO extends GenericDAO<FichaDiaria> implements DAO<FichaDiaria
     @Override
     public boolean salvar(FichaDiaria fichaDiaria) {
         database.execSQL("INSERT INTO fichaDiaria(statusUsuario,descricao,data,idCliente) VALUES(?,?,?,?)",
-                new Object[]{fichaDiaria.getStatusUsuario(),fichaDiaria.getDescricao(),fichaDiaria.getData(),usuario.getIdUsuario()});
+                new Object[]{fichaDiaria.getStatusUsuario(),fichaDiaria.getDescricao(),fichaDiaria.getData(), UserAtivoSingleton.getUsuario().getIdUsuario()});
         Toast.makeText(context, "Usuario Cadastrado", Toast.LENGTH_LONG).show();
         return true;
     }
 
     public ArrayList<FichaDiaria> listarFichas(FichaDiaria fichaDiaria) {
-        c = database.rawQuery("SELECT statusUsuario,descricao,data FROM fichaDiaria WHERE idCliente='"+usuario.getIdUsuario()+"'",null);
+        c = database.rawQuery("SELECT statusUsuario,descricao,data FROM fichaDiaria WHERE idCliente='"+UserAtivoSingleton.getUsuario().getIdUsuario()+"'",null);
         c.moveToFirst();
         if(c.getCount()>=1){
             ArrayList<FichaDiaria> dados = new ArrayList<>();

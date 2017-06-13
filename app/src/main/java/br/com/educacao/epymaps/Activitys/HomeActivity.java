@@ -15,6 +15,8 @@ import br.com.educacao.epymaps.R;
 public class HomeActivity extends AppCompatActivity {
 
     private LinearLayout linearLayout;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

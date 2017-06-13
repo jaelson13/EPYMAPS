@@ -60,7 +60,7 @@ public abstract class GenericDAO<T> extends SQLiteOpenHelper {
     private String sqlCreateFichaUsuario = "CREATE TABLE IF NOT EXISTS fichaDiaria(" +
             "idFicha INNTEGER PRIMARY KEY AUTOINCREMENT," +
             "statusUsuario VARCHAR(6) NOT NULL," +
-            "descricao VARCHAR(50) DEFAULT 'Sem descrição'," +
+            "descricao VARCHAR(100) DEFAULT 'Sem descrição'," +
             "idCliente INTEGER," +
             "FOREIGN KEY(idCliente) REFERENCES usuario(idCliente));";
 
@@ -76,6 +76,12 @@ public abstract class GenericDAO<T> extends SQLiteOpenHelper {
         db.execSQL(sqlCreateEstado);
         db.execSQL(sqlCreateMunicipio);
         db.execSQL(sqlCreateUsuario);
+        try {
+            inserirEstados(db);
+            inserirMunicipios(db);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -99,7 +105,7 @@ public abstract class GenericDAO<T> extends SQLiteOpenHelper {
         try {
             String linha;
             while ((linha = reader.readLine()) != null) {
-                String[] strings = TextUtils.split(linha, ";"); // separador de campos ";"
+                String[] strings = TextUtils.split(linha, ";");
                 db.execSQL(linha);
                 Log.e("Teste", "Erro : " + strings[0].trim());
 
@@ -118,7 +124,7 @@ public abstract class GenericDAO<T> extends SQLiteOpenHelper {
         try {
             String linha;
             while ((linha = reader.readLine()) != null) {
-                String[] strings = TextUtils.split(linha, ";"); // separador de campos ";"
+                String[] strings = TextUtils.split(linha, ";");
                 db.execSQL(linha);
                 Log.e("Teste", "Erro : " + strings[0].trim());
 

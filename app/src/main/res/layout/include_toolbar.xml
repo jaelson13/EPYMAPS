@@ -1,41 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/toolbar"
-    android:layout_width="100pt"
-    android:layout_height="100pt"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:minHeight="?attr/actionBarSize"
     android:background="?attr/colorPrimary"
-    android:layout_marginTop="50dp"
     android:title="Ficha Diaria"
-    android:layout_gravity="center"
+    android:layout_margin="15dp"
 
+    android:layout_centerHorizontal="true">
 
-    >
-
-
-    <ImageButton
-    android:id="@+id/ibDoente"
-    android:layout_width="48px"
-    android:layout_height="48px"
-    android:src="@mipmap/iconsaudavel"/>
-
-    <ImageButton
-    android:id="@+id/ibSaude"
-    android:layout_width="48px"
-    android:layout_height="48px"
-    android:src="@mipmap/iconsaudavel"/>
-
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Descrição:"/>
-fica
-    <EditText
-        android:layout_width="50pt"
-        android:layout_height="50pt"
-        android:maxLines="20"
-        android:maxLength="100"
-        android:background="@color/branco"
-        android:layout_gravity="center"/>
+        android:orientation="vertical">
 
-</android.support.v7.widget.Toolbar>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tbMenu"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_gravity="top"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ficha Diária"
+            />
+        
+    </android.support.v7.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <RelativeLayout                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/ibDoente"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:src="@mipmap/doente"
+                    />
+
+                <ImageView
+                    android:id="@+id/idCheckDoente"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/checado"
+                    android:visibility="invisible"
+                    android:alpha="0.7"
+                    />
+
+
+                <ImageButton
+                    android:id="@+id/ibSaude"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="75dp"
+                    android:background="@android:color/transparent"
+                    android:src="@mipmap/sadio" />
+
+                <ImageView
+                    android:id="@+id/idCheckSaude"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@+id/ibSaude"
+                    android:src="@mipmap/checado"
+                    android:alpha="0.7"
+                    android:visibility="invisible" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginTop="10dp"
+                    android:text="Descrição:" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:maxLength="100"
+                    android:maxLines="20" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Enviar" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
