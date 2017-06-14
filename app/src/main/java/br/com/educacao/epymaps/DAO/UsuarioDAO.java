@@ -8,6 +8,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import br.com.educacao.epymaps.Activitys.CadastroActivity;
+import br.com.educacao.epymaps.Model.UserAtivoSingleton;
 import br.com.educacao.epymaps.Model.Usuario;
 
 /**
@@ -57,8 +58,7 @@ public class UsuarioDAO extends GenericDAO<Usuario> implements DAO<Usuario> {
         return dados;
     }
 
-
-    public boolean verificarEmail(String email) {
+    public boolean verificarEmailBanco(String email) {
         c = database.rawQuery("SELECT email FROM usuario WHERE email='" + email + "'", null);
         c.moveToFirst();
 
@@ -90,15 +90,18 @@ public class UsuarioDAO extends GenericDAO<Usuario> implements DAO<Usuario> {
     }
 
     private void salvarSessao(String email) {
-        Usuario usuario = new Usuario();
         c = database.rawQuery("SELECT idCliente,nome,sexo,estado,cidade FROM usuario WHERE email='"+email+"'",null);
         c.moveToFirst();
 
+        Usuario usuario = new Usuario();
         usuario.setIdUsuario(c.getInt(c.getColumnIndex("idCliente")));
         usuario.setNome(c.getString(c.getColumnIndex("nome")));
         usuario.setSexo(c.getString(c.getColumnIndex("sexo")));
         usuario.setCidade(c.getString(c.getColumnIndex("cidade")));
         usuario.setEstado(c.getString(c.getColumnIndex("estado")));
+
+        UserAtivoSingleton.getInstacia().setUsuario(usuario);
+
     }
 
     public void desativarUsuario(String email) {

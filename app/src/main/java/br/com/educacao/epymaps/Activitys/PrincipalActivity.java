@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,6 +38,7 @@ public class PrincipalActivity extends AppCompatActivity {
         btnNovaConta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 Intent intent = new Intent(PrincipalActivity.this, CadastroActivity.class);
                 startActivity(intent);
             }
@@ -45,10 +47,12 @@ public class PrincipalActivity extends AppCompatActivity {
         btnLogar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if(usuarioDAO.logar(edtEmail.getText().toString(),edtSenha.getText().toString())){
-                    Intent intent = new Intent(PrincipalActivity.this,HomeActivity.class);
-                    startActivity(intent);
+                if(validarCampos()) {
+                    if (usuarioDAO.logar(edtEmail.getText().toString(), edtSenha.getText().toString())) {
+                        finish();
+                        Intent intent = new Intent(PrincipalActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                    }
                 }
             }
         });
@@ -67,5 +71,19 @@ public class PrincipalActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private boolean validarCampos() {
+        if (TextUtils.isEmpty(edtEmail.getText().toString())) {
+            edtEmail.setError("Preecha o email");
+            return false;
+        }
+
+        if (TextUtils.isEmpty(edtSenha.getText().toString())) {
+            edtSenha.setError("Preecha a senha");
+            return false;
+        }
+
+        return true;
     }
 }
