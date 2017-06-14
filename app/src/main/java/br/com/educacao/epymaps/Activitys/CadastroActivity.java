@@ -44,6 +44,7 @@ public class CadastroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
 
+
         usuarioDAO = new UsuarioDAO(CadastroActivity.this);
         edtNome = (EditText) findViewById(R.id.edtNome);
         edtSobrenome = (EditText) findViewById(R.id.edtSobrenome);
