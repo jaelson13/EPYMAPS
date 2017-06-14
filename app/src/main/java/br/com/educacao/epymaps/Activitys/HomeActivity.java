@@ -35,7 +35,7 @@ public class HomeActivity extends AppCompatActivity {
         ibStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+//aqui
                 if(ibStatus.getDrawable() == R.mipmap.sadio) {
                     ibStatus.setImageResource(R.mipmap.sadio);
                     status = "Sadio";
