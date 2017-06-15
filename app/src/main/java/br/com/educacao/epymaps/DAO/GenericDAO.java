@@ -27,8 +27,8 @@ import br.com.educacao.epymaps.R;
 
 public abstract class GenericDAO<T> extends SQLiteOpenHelper {
 
-    private static final String NOME_BANCO = "epymaps";
-    private static final int VERSAO_BANCO = 13;
+    private static final String NOME_BANCO = "bdepymaps";
+    private static final int VERSAO_BANCO = 1;
     private Context context;
     private String sqlCreateEstado = "CREATE TABLE IF NOT EXISTS estado(" +
             "idEstado INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -58,9 +58,10 @@ public abstract class GenericDAO<T> extends SQLiteOpenHelper {
             ");";
 
     private String sqlCreateFichaUsuario = "CREATE TABLE IF NOT EXISTS fichaDiaria(" +
-            "idFicha INNTEGER PRIMARY KEY AUTOINCREMENT," +
+            "idFicha INTEGER PRIMARY KEY AUTOINCREMENT," +
             "statusUsuario VARCHAR(6) NOT NULL," +
             "descricao VARCHAR(100) DEFAULT 'Sem descrição'," +
+            "data DATE NOT NULL,"+
             "idCliente INTEGER," +
             "FOREIGN KEY(idCliente) REFERENCES usuario(idCliente));";
 
@@ -76,6 +77,7 @@ public abstract class GenericDAO<T> extends SQLiteOpenHelper {
         db.execSQL(sqlCreateEstado);
         db.execSQL(sqlCreateMunicipio);
         db.execSQL(sqlCreateUsuario);
+        db.execSQL(sqlCreateFichaUsuario);
         try {
             inserirEstados(db);
             inserirMunicipios(db);
@@ -89,6 +91,7 @@ public abstract class GenericDAO<T> extends SQLiteOpenHelper {
         db.execSQL(sqlCreateUsuario);
         db.execSQL(sqlCreateEstado);
         db.execSQL(sqlCreateMunicipio);
+        db.execSQL(sqlCreateFichaUsuario);
         try {
             inserirEstados(db);
             inserirMunicipios(db);

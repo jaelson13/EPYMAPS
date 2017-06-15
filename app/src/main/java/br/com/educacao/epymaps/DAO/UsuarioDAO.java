@@ -36,10 +36,7 @@ public class UsuarioDAO extends GenericDAO<Usuario> implements DAO<Usuario> {
     }
 
     public ArrayList<String> getMunicipios(String estado) {
-        c = database.rawQuery("SELECT uf FROM estado WHERE nome='" + estado + "'", null);
-        c.moveToFirst();
-        String valor = c.getString(c.getColumnIndex("uf"));
-        c = database.rawQuery("SELECT nome FROM municipio WHERE uf='" + valor + "'", null);
+        c = database.rawQuery("SELECT nome FROM municipio WHERE uf='" + estado + "'", null);
         ArrayList<String> dados = new ArrayList<>();
         c.moveToFirst();
         do {
@@ -49,11 +46,11 @@ public class UsuarioDAO extends GenericDAO<Usuario> implements DAO<Usuario> {
     }
 
     public ArrayList<String> getEstados() {
-        c = database.rawQuery("SELECT nome FROM estado", null);
+        c = database.rawQuery("SELECT uf FROM estado", null);
         ArrayList<String> dados = new ArrayList<>();
         c.moveToFirst();
         do {
-            dados.add(c.getString(c.getColumnIndex("nome")));
+            dados.add(c.getString(c.getColumnIndex("uf")));
         } while (c.moveToNext());
         return dados;
     }

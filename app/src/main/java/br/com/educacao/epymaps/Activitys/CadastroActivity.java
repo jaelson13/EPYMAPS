@@ -1,7 +1,6 @@
 package br.com.educacao.epymaps.Activitys;
 
 import android.content.Intent;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,10 +12,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,7 +39,7 @@ public class CadastroActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cadastro);
+        setContentView(R.layout.tela_cadastro);
 
 
         usuarioDAO = new UsuarioDAO(CadastroActivity.this);
@@ -58,6 +55,8 @@ public class CadastroActivity extends AppCompatActivity {
         radioGenero = (RadioGroup) findViewById(R.id.radioGenero)
 
         ;
+
+
         ArrayList<String> arrayEstados = usuarioDAO.getEstados();
         ArrayAdapter aadEstados = new ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayEstados);
         spEstados.setAdapter(aadEstados);
@@ -96,7 +95,7 @@ public class CadastroActivity extends AppCompatActivity {
                     if (usuarioDAO.verificarEmailBanco(usuario.getEmail())) {
                         if (usuarioDAO.salvar(usuario)) {
                             finish();
-                            Intent intent = new Intent(CadastroActivity.this, PrincipalActivity.class);
+                            Intent intent = new Intent(CadastroActivity.this, TelaLogin.class);
                             startActivity(intent);
                         }
                     } else {

@@ -1,7 +1,6 @@
 package br.com.educacao.epymaps.Activitys;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,12 +11,10 @@ import android.widget.EditText;
 import br.com.educacao.epymaps.DAO.UsuarioDAO;
 import br.com.educacao.epymaps.R;
 
-public class PrincipalActivity extends AppCompatActivity {
+public class TelaLogin extends AppCompatActivity {
 
     private Button btnNovaConta;
     private Button btnLogar;
-    private Button btnDesativar;
-    private Button btnAtivar;
     private EditText edtEmail;
     private EditText edtSenha;
     UsuarioDAO usuarioDAO;
@@ -25,21 +22,21 @@ public class PrincipalActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_principal);
+        setContentView(R.layout.tela_login);
 
         btnNovaConta = (Button) findViewById(R.id.btnNovaConta);
         btnLogar = (Button) findViewById(R.id.btnLogar);
-        btnDesativar = (Button) findViewById(R.id.btnDesativar);
-        btnAtivar = (Button) findViewById(R.id.btnAtivar);
+
         edtEmail = (EditText) findViewById(R.id.edtEmail);
         edtSenha = (EditText) findViewById(R.id.edtSenha);
-        usuarioDAO = new UsuarioDAO(PrincipalActivity.this);
+        usuarioDAO = new UsuarioDAO(TelaLogin.this);
+
 
         btnNovaConta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
-                Intent intent = new Intent(PrincipalActivity.this, CadastroActivity.class);
+                Intent intent = new Intent(TelaLogin.this, CadastroActivity.class);
                 startActivity(intent);
             }
         });
@@ -47,29 +44,16 @@ public class PrincipalActivity extends AppCompatActivity {
         btnLogar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validarCampos()) {
+                if (validarCampos()) {
                     if (usuarioDAO.logar(edtEmail.getText().toString(), edtSenha.getText().toString())) {
                         finish();
-                        Intent intent = new Intent(PrincipalActivity.this, HomeActivity.class);
+                        Intent intent = new Intent(TelaLogin.this, HomeActivity.class);
                         startActivity(intent);
                     }
                 }
             }
         });
 
-        btnAtivar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                usuarioDAO.ativarUsuario(edtEmail.getText().toString());
-            }
-        });
-
-        btnDesativar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                usuarioDAO.desativarUsuario(edtEmail.getText().toString());
-            }
-        });
 
     }
 
@@ -87,3 +71,25 @@ public class PrincipalActivity extends AppCompatActivity {
         return true;
     }
 }
+
+
+/*
+ private Button btnDesativar;
+    private Button btnAtivar;
+ btnDesativar = (Button) findViewById(R.id.btnDesativar);
+        btnAtivar = (Button) findViewById(R.id.btnAtivar);
+btnAtivar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                usuarioDAO.ativarUsuario(edtEmail.getText().toString());
+            }
+        });
+
+        btnDesativar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                usuarioDAO.desativarUsuario(edtEmail.getText().toString());
+            }
+        });
+
+ */

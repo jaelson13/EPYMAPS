@@ -38,20 +38,26 @@
             android:layout_gravity="center"
             android:orientation="vertical">
 
-            <RelativeLayout                android:layout_width="match_parent"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal">
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_centerHorizontal="true"
+                    android:text="Click Status" />
                 <ImageButton
                     android:id="@+id/ibStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:src="@mipmap/doente"
+                    android:layout_marginTop="20dp"
+                    android:layout_centerHorizontal="true"
                     />
-
-
             </RelativeLayout>
 
             <LinearLayout
@@ -68,13 +74,15 @@
                     android:text="Descrição:" />
 
                 <EditText
+                    android:id="@+id/edtDescricao"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
                     android:maxLength="100"
-                    android:maxLines="20" />
+                    />
 
                 <Button
+                    android:id="@+id/btnEnviar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Enviar" />
