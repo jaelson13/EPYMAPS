@@ -7,7 +7,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import br.com.educacao.epymaps.Activitys.CadastroActivity;
 import br.com.educacao.epymaps.Model.UserAtivoSingleton;
 import br.com.educacao.epymaps.Model.Usuario;
 
@@ -78,10 +77,6 @@ public class UsuarioDAO extends GenericDAO<Usuario> implements DAO<Usuario> {
                 Toast.makeText(context, "Usuario Desativado", Toast.LENGTH_LONG).show();
                 return false;
             }
-        } else {
-            Toast.makeText(context, "Usuario ou Senha invalidos", Toast.LENGTH_LONG).show();
-            return false;
-
         }
         return false;
     }

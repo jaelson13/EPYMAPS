@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:alpha="0.8"
-    android:background="@drawable/planofundo"
+    android:alpha="0.9"
+    android:background="@drawable/backgroud3"
     android:orientation="vertical">
 
 
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="110dp"
+        android:layout_marginBottom="70dp"
         android:gravity="bottom"
         android:orientation="vertical">
 
@@ -36,26 +36,25 @@
             android:layout_width="250dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:alpha="0.4"
             android:background="@drawable/radioedittext"
             android:drawableLeft="@drawable/ic_edtuser"
             android:hint="Nome"
-            android:textColorHint="#FFFFFF"
-            android:textSize="8pt" />
+            android:textColor="@android:color/white"
+            android:textColorHint="#60FFFFFF"
+            android:textSize="7pt" />
 
         <EditText
             android:id="@+id/edtEmail"
             android:layout_width="250dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:alpha="0.4"
+            android:layout_marginTop="15dp"
             android:background="@drawable/radioedittext"
             android:drawableLeft="@drawable/ic_edtemail"
             android:hint="Email"
-            android:textColorHint="#FFFFFF"
-            android:textSize="8pt"
+            android:textColor="@android:color/white"
+            android:textColorHint="#60FFFFFF"
+            android:textSize="7pt"
 
             />
 
@@ -64,46 +63,77 @@
             android:layout_width="250dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:alpha="0.4"
+            android:layout_marginTop="15dp"
             android:background="@drawable/radioedittext"
             android:drawableLeft="@drawable/ic_edtpassword"
             android:hint="Senha"
             android:inputType="textPassword"
-            android:textColorHint="#FFFFFF"
-
-            android:textSize="8pt" />
+            android:textColor="@android:color/white"
+            android:textColorHint="#60FFFFFF"
+            android:textSize="7pt" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:orientation="horizontal">
 
             <Spinner
                 android:id="@+id/spEstados"
                 android:layout_width="50dp"
-                android:layout_height="35dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:alpha="0.4"
-                android:background="@drawable/radioedittext"
-                android:textColor="#FFFFFF"
-                android:textSize="8pt"
-                android:prompt="@string/estados"/>
+                android:layout_marginTop="15dp"
+                android:background="@drawable/radiospinner"
+                android:prompt="@string/estados"
+                android:textColor="@android:color/white"
+
+                />
 
             <Spinner
                 android:id="@+id/spCidades"
-                android:layout_width="180dp"
-                android:layout_height="35dp"
+                android:layout_width="190dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
-                android:alpha="0.4"
-                android:background="@drawable/radioedittext"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/radiospinner"
                 android:prompt="@string/cidades"
-                android:textColor="#FFFFFF"
-                android:textSize="8pt" />
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <RadioGroup
+                android:id="@+id/radioGenero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rbMasculino"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.9"
+                    android:text="Masculino"
+                    android:textColor="@android:color/white"
+                    android:textSize="7pt" />
+
+                <RadioButton
+                    android:id="@+id/rbFeminino"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.9"
+                    android:text="Feminino"
+                    android:textColor="@android:color/white"
+                    android:textSize="7pt" />
+
+            </RadioGroup>
         </LinearLayout>
 
         <Button
@@ -111,7 +141,7 @@
             android:layout_width="250dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:alpha="0.8"
             android:background="@drawable/radiobotoes"
             android:text="Continuar"
@@ -126,23 +156,22 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-
         android:layout_gravity="center"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="24dp"
         android:layout_marginStart="15dp"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnRecupSenha"
+            android:id="@+id/btnVoltarLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
             android:alpha="0.9"
             android:background="@android:color/transparent"
             android:hint="Voltar ao Login"
             android:textColorHint="@android:color/white"
-            android:textSize="5pt"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"/>
+            android:textSize="7pt" />
     </RelativeLayout>
 
 

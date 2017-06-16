@@ -21,10 +21,9 @@ import br.com.educacao.epymaps.DAO.UsuarioDAO;
 import br.com.educacao.epymaps.Model.Usuario;
 import br.com.educacao.epymaps.R;
 
-public class CadastroActivity extends AppCompatActivity {
+public class TelaCadastro extends AppCompatActivity {
 
     private EditText edtNome;
-    private EditText edtSobrenome;
     private EditText edtEmail;
     private EditText edtSenha;
     private Spinner spCidades;
@@ -33,6 +32,7 @@ public class CadastroActivity extends AppCompatActivity {
     private RadioButton rbFeminino;
     private RadioButton rbMasculino;
     private Button btnCadastrar;
+    private Button btnVoltarLogin;
     private UsuarioDAO usuarioDAO;
 
 
@@ -42,30 +42,36 @@ public class CadastroActivity extends AppCompatActivity {
         setContentView(R.layout.tela_cadastro);
 
 
-        usuarioDAO = new UsuarioDAO(CadastroActivity.this);
+        usuarioDAO = new UsuarioDAO(TelaCadastro.this);
         edtNome = (EditText) findViewById(R.id.edtNome);
-        edtSobrenome = (EditText) findViewById(R.id.edtSobrenome);
         edtEmail = (EditText) findViewById(R.id.edtEmail);
         edtSenha = (EditText) findViewById(R.id.edtSenha);
         btnCadastrar = (Button) findViewById(R.id.btnCadastrar);
+        btnVoltarLogin = (Button) findViewById(R.id.btnVoltarLogin);
         spCidades = (Spinner) findViewById(R.id.spCidades);
         spEstados = (Spinner) findViewById(R.id.spEstados);
         rbFeminino = (RadioButton) findViewById(R.id.rbFeminino);
         rbMasculino = (RadioButton) findViewById(R.id.rbMasculino);
-        radioGenero = (RadioGroup) findViewById(R.id.radioGenero)
+        radioGenero = (RadioGroup) findViewById(R.id.radioGenero);
 
-        ;
+        edtNome.getBackground().setAlpha(60);
+        edtEmail.getBackground().setAlpha(60);
+        edtSenha.getBackground().setAlpha(60);
+        spCidades.getBackground().setAlpha(60);
+        spEstados.getBackground().setAlpha(60);
+
 
 
         ArrayList<String> arrayEstados = usuarioDAO.getEstados();
         ArrayAdapter aadEstados = new ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayEstados);
         spEstados.setAdapter(aadEstados);
 
+
         spEstados.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ArrayList<String> arrayCidades = usuarioDAO.getMunicipios(spEstados.getSelectedItem().toString());
-                ArrayAdapter aadCidades = new ArrayAdapter(CadastroActivity.this, android.R.layout.simple_list_item_1, arrayCidades);
+                ArrayAdapter aadCidades = new ArrayAdapter(TelaCadastro.this, android.R.layout.simple_list_item_1, arrayCidades);
                 spCidades.setAdapter(aadCidades);
             }
 
@@ -81,7 +87,7 @@ public class CadastroActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (validarCampos()) {
                     Usuario usuario = new Usuario();
-                    usuario.setNome(edtNome.getText().toString() + " " + edtSobrenome.getText().toString());
+                    usuario.setNome(edtNome.getText().toString());
                     usuario.setEmail(edtEmail.getText().toString());
                     usuario.setSenha(edtSenha.getText().toString());
                     usuario.setCidade(spCidades.getSelectedItem().toString());
@@ -95,7 +101,7 @@ public class CadastroActivity extends AppCompatActivity {
                     if (usuarioDAO.verificarEmailBanco(usuario.getEmail())) {
                         if (usuarioDAO.salvar(usuario)) {
                             finish();
-                            Intent intent = new Intent(CadastroActivity.this, TelaLogin.class);
+                            Intent intent = new Intent(TelaCadastro.this, TelaLogin.class);
                             startActivity(intent);
                         }
                     } else {
@@ -104,31 +110,35 @@ public class CadastroActivity extends AppCompatActivity {
                 }
             }
         });
+
+        btnVoltarLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                Intent intent = new Intent(TelaCadastro.this, TelaLogin.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private boolean validarCampos() {
         if (TextUtils.isEmpty(edtNome.getText().toString())) {
-            edtNome.setError("Preecha este campo");
-            return false;
-        }
-
-        if (TextUtils.isEmpty(edtSobrenome.getText().toString())) {
-            edtSobrenome.setError("Preecha este campo");
+            edtNome.setError("Preecha o nome");
             return false;
         }
 
         if (TextUtils.isEmpty(edtEmail.getText().toString())) {
-            edtEmail.setError("Preecha este campo");
+            edtEmail.setError("Preecha o email");
             return false;
         }
 
         if (TextUtils.isEmpty(edtSenha.getText().toString())) {
-            edtSenha.setError("Preecha este campo");
+            edtSenha.setError("Preecha a senha");
             return false;
         }
 
         if (TextUtils.isEmpty(spEstados.toString())) {
-            edtEmail.setError("Preecha este campo");
+            edtEmail.setError("Informe o estado");
             return false;
         }
 
@@ -138,7 +148,7 @@ public class CadastroActivity extends AppCompatActivity {
         }
 
         if (TextUtils.isEmpty(spCidades.toString())) {
-            edtEmail.setError("Preecha este campo");
+            edtEmail.setError("Informe a cidade");
             return false;
         }
 

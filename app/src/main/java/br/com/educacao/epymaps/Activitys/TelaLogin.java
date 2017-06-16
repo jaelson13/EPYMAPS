@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import br.com.educacao.epymaps.DAO.UsuarioDAO;
 import br.com.educacao.epymaps.R;
@@ -15,8 +16,10 @@ public class TelaLogin extends AppCompatActivity {
 
     private Button btnNovaConta;
     private Button btnLogar;
+    private Button btnRecuperarSenha;
     private EditText edtEmail;
     private EditText edtSenha;
+    private TextView tvStatusLogin;
     UsuarioDAO usuarioDAO;
 
     @Override
@@ -26,17 +29,29 @@ public class TelaLogin extends AppCompatActivity {
 
         btnNovaConta = (Button) findViewById(R.id.btnNovaConta);
         btnLogar = (Button) findViewById(R.id.btnLogar);
-
         edtEmail = (EditText) findViewById(R.id.edtEmail);
         edtSenha = (EditText) findViewById(R.id.edtSenha);
-        usuarioDAO = new UsuarioDAO(TelaLogin.this);
+        tvStatusLogin = (TextView) findViewById(R.id.tvStatusLogin);
+        btnRecuperarSenha = (Button) findViewById(R.id.btnRecupSenha);
+        edtEmail.getBackground().setAlpha(60);
+        edtSenha.getBackground().setAlpha(60);
 
+        usuarioDAO = new UsuarioDAO(TelaLogin.this);
 
         btnNovaConta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
-                Intent intent = new Intent(TelaLogin.this, CadastroActivity.class);
+                Intent intent = new Intent(TelaLogin.this, TelaCadastro.class);
+                startActivity(intent);
+            }
+        });
+
+        btnRecuperarSenha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                Intent intent = new Intent(TelaLogin.this, TelaRecuperarConta.class);
                 startActivity(intent);
             }
         });
@@ -49,6 +64,8 @@ public class TelaLogin extends AppCompatActivity {
                         finish();
                         Intent intent = new Intent(TelaLogin.this, HomeActivity.class);
                         startActivity(intent);
+                    }else{
+                        tvStatusLogin.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -78,12 +95,7 @@ public class TelaLogin extends AppCompatActivity {
     private Button btnAtivar;
  btnDesativar = (Button) findViewById(R.id.btnDesativar);
         btnAtivar = (Button) findViewById(R.id.btnAtivar);
-btnAtivar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                usuarioDAO.ativarUsuario(edtEmail.getText().toString());
-            }
-        });
+
 
         btnDesativar.setOnClickListener(new View.OnClickListener() {
             @Override
