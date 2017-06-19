@@ -8,12 +8,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import br.com.educacao.epymaps.DAO.UsuarioDAO;
 import br.com.educacao.epymaps.R;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 
 public class TelaLogin extends AppCompatActivity {
-
+    private LoginButton lblogar;
     private Button btnNovaConta;
     private Button btnLogar;
     private Button btnRecuperarSenha;
@@ -22,10 +30,16 @@ public class TelaLogin extends AppCompatActivity {
     private TextView tvStatusLogin;
     UsuarioDAO usuarioDAO;
 
+    private CallbackManager callbackManager;//face
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.tela_login);
+
+        callbackManager = CallbackManager.Factory.create();//face
+        lblogar = (LoginButton) findViewById(R.id.btface);
 
         btnNovaConta = (Button) findViewById(R.id.btnNovaConta);
         btnLogar = (Button) findViewById(R.id.btnLogar);
@@ -37,6 +51,27 @@ public class TelaLogin extends AppCompatActivity {
         edtSenha.getBackground().setAlpha(60);
 
         usuarioDAO = new UsuarioDAO(TelaLogin.this);
+
+      LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                goMainScreen();
+            }
+
+            @Override
+            public void onCancel() {
+              //  Toast.makeText(getApplicationContext(), R.cancel_login, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+             //   Toast.makeText(getApplicationContext(),R.string.error_login, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile","user_friends","email"));
+
+
 
         btnNovaConta.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +109,13 @@ public class TelaLogin extends AppCompatActivity {
 
     }
 
+    private void goMainScreen() {
+        Intent intent = new Intent(this, TelaCadastro.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+
     private boolean validarCampos() {
         if (TextUtils.isEmpty(edtEmail.getText().toString())) {
             edtEmail.setError("Preecha o email");
@@ -87,6 +129,14 @@ public class TelaLogin extends AppCompatActivity {
 
         return true;
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+      //  super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+
 }
 
 
