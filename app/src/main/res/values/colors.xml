@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#EFEBE9</color>
     <color name="colorAccent">#616161</color>
     <color name="branco">#FFFFFF</color>
+    <color name="tab_background_selected">#30616161</color>
+    <color name="tab_background_unselected">#FFFFFF</color>
+
 </resources>

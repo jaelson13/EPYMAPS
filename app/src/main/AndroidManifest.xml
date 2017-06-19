@@ -19,9 +19,13 @@
         <activity
             android:name=".Activitys.TelaCadastro"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Activitys.HomeActivity" />
+        <activity android:name=".Activitys.HomeActivity"
+            android:theme="@style/AppTheme"
+
+            />
         <activity android:name=".Activitys.TelaRecuperarConta"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"
+            ></activity>
     </application>
 
 </manifest>

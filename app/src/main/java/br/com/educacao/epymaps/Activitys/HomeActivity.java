@@ -1,14 +1,10 @@
 package br.com.educacao.epymaps.Activitys;
 
-import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
+import android.graphics.Color;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,9 +12,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import java.util.Date;
 import java.util.List;
 
+import br.com.educacao.epymaps.Adapter.TabAdpter;
 import br.com.educacao.epymaps.DAO.FichaDAO;
 import br.com.educacao.epymaps.Model.FichaDiaria;
 import br.com.educacao.epymaps.R;
@@ -40,6 +36,79 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+
+        final TabLayout tabLayout = (TabLayout) findViewById(R.id.tbLayout);
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_reports));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_maps));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_search));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_user));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        final TabAdpter tbAdapter = new TabAdpter(getSupportFragmentManager(),tabLayout.getTabCount());
+        viewPager.setAdapter(tbAdapter);
+
+
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+    }
+
+    private void atualizarSpinner() {
+
+        List<FichaDiaria> arrayFicha = fichaDAO.listarFichas();
+        if (arrayFicha != null) {
+
+            ArrayAdapter<FichaDiaria> adapterFicha = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrayFicha);
+            lvFichasRespData.setAdapter(adapterFicha);
+        }
+    }
+/*
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.itmPerfil:
+                linearLayout.setVisibility(LinearLayout.VISIBLE);
+                break;
+            case R.id.itmSair:
+                Intent intent = new Intent(this,TelaLogin.class);
+                startActivity(intent);
+                break;
+
+            case android.R.id.home:
+                finish();
+        }
+        return true;
+    }
+*/
+
+}
+/*
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -84,74 +153,85 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
-
-    }
-
-    private void atualizarSpinner() {
-
-        List<FichaDiaria> arrayFicha = fichaDAO.listarFichas();
-        if(arrayFicha != null) {
-
-            ArrayAdapter<FichaDiaria> adapterFicha = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,arrayFicha);
-            lvFichasRespData.setAdapter(adapterFicha);
-        }
-    }
-
-    @Override
-    public void setSupportActionBar(@Nullable Toolbar toolbar) {
-        super.setSupportActionBar(toolbar);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.itmPerfil:
-                linearLayout.setVisibility(LinearLayout.VISIBLE);
-                break;
-            case R.id.itmSair:
-                Intent intent = new Intent(this,TelaLogin.class);
-                startActivity(intent);
-                break;
-
-            case android.R.id.home:
-                finish();
-        }
-        return true;
-    }
-
-
-}
+ */
 /*
-<ImageView
-                    android:id="@+id/idCheckDoente"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/checado"
-                    android:visibility="invisible"
-                    android:alpha="0.7"
-                    />
+ <include layout="@layout/toolbar_fichadiaria"></include>
+    <include layout="@layout/toolbar_listafichasrespondidas"></include>
 
 
-                <ImageButton
-                    android:id="@+id/ibSaude"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="75dp"
-                    android:background="@android:color/transparent"
-                    android:src="@mipmap/sadio" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        android:id="@+id/llPerfil">
 
-                <ImageView
-                    android:id="@+id/idCheckSaude"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignRight="@+id/ibSaude"
-                    android:src="@mipmap/checado"
-                    android:alpha="0.7"
-                    android:visibility="invisible" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10pt">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nome:"/>
+
+            <EditText
+                android:id="@+id/edtNome"
+                android:layout_width="50pt"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sobrenome:"/>
+            <EditText
+                android:layout_width="50pt"
+                android:layout_height="wrap_content"
+                android:id="@+id/edtSobrenome"
+                />
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estado:"/>
+        <Spinner
+            android:layout_width="100pt"
+            android:layout_height="wrap_content"
+            android:id="@+id/spEstados"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cidade:"/>
+        <Spinner
+            android:layout_width="100pt"
+            android:layout_height="wrap_content"
+            android:id="@+id/spCidades"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sexo:"/>
+        <RadioGroup
+            android:id="@+id/radioGenero"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <RadioButton
+                android:id="@+id/rbMasculino"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Masculino"
+                />
+
+            <RadioButton
+                android:id="@+id/rbFeminino"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Feminino" />
+
+        </RadioGroup>
+
+    </LinearLayout>
  */
